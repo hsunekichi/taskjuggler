@@ -35,7 +35,7 @@ copyright "Creative Commons 2023 Proyecto Software - Unizar."
 # The daily default rate of all resources. This can be overridden for each
 # resource. We specify this, so that we can do a good calculation of
 # the costs of the project.
-rate 145
+rate 146
 
 
 # In order to do a simple profit and loss analysis of the project we
