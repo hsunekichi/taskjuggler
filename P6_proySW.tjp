@@ -45,6 +45,7 @@ rate 146
 account cost "Project Cost" {
   account manag "Management"
   account wFront "Web Front-End"
+  account mFront "Mobile Front-end"
   account back "Back-End"
 }
 account rev "Payments"
@@ -118,6 +119,25 @@ task WMGame "Web & Mobile Game" {
       depends WMGame.tback.tlogic
     }
   }
+  
+  task tbackCloud "Back end cloud development" {
+    # It is necessary to “purge” the “chargeset” because it has been assigned previously to other variable 
+    purge chargeset
+    chargeset back
+    responsible dev1
+    
+    task tBEd "Back End Cloud structural design" {
+      # The effort to finish this task is 3 man-days.
+      effort 3d
+      allocate dev1
+    }
+    task tlogic "Cloud deployment" {
+      effort 6d
+      allocate dev1
+      depends WMGame.tback
+      depends WMGame.tbackCloud.tBEd
+    }
+  }
 
   task twebF "Web Front End" {
     purge chargeset
@@ -145,8 +165,31 @@ task WMGame "Web & Mobile Game" {
       depends WMGame.twebF.tFEc
     }    
   }
+  
+  task tmobileF "Mobile Front end" {
+    purge chargeset
+    chargeset mFront
+    responsible dev3
+    depends WMGame.tback.tBEd
+    
+    task tGUId "Mobile GUI Design" {
+      effort 9d
+      actual:effort 15d
+      allocate dev2
+    }
+    task tFEc "Mobile Front End Construction" {
+      effort 15d
+      allocate dev2, dev3
+      depends WMGame.tmobileF.tGUId
+    }
+    task tFEt "Mobile Front End Test" {
+      effort 6d
+      allocate dev1
+      depends WMGame.tmobileF.tFEc
+    }    
+  }
 
-  task ttest "Accpetance tests" {
+  task ttest "Acceptance tests" {
       effort 10d
       allocate boss
       allocate dev2
@@ -158,6 +201,7 @@ task WMGame "Web & Mobile Game" {
       }
       depends WMGame.twebF
       depends WMGame.tback
+      depends WMGame.tmobileF
   }
 
     
