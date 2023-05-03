@@ -54,7 +54,7 @@ balance cost rev
 
 resource bossOfTheBoss "Hugo Mateo" {
   email "816678@unizar.es"
-  shift 4h
+  limits { dailymax 4h }
   actual:leaves project 2023-05-07 - 2023-05-12
   rate 300
 }
