@@ -52,6 +52,13 @@ account rev "Payments"
 # The Profit&Loss analysis should be rev - cost accounts.
 balance cost rev
 
+resource bossOfTheBoss "Hugo Mateo" {
+  email "816678@unizar.es"
+  shift 4h
+  actual:leaves project 2023-05-07 - 2023-05-12
+  rate 300
+}
+
 resource boss "Liz Bullock" {
   email "iiii@unizar.es"
   actual:leaves project 2023-05-07 - 2023-05-12
@@ -88,6 +95,7 @@ task WMGame "Web & Mobile Game" {
   task tgdesign "General System Design" {
       effort 2d
       allocate boss
+      allocate bossOfTheBoss
       depends WMGame.deliveries.start
   }
 
@@ -101,6 +109,7 @@ task WMGame "Web & Mobile Game" {
       # The effort to finish this task is 5 man-days.
       effort 5d
       allocate dev1
+      allocate bossOfTheBoss
     }
     task tlogic "Game logic" {
       effort 12d
@@ -156,7 +165,7 @@ task WMGame "Web & Mobile Game" {
     }
     task tFEc "Web Front End Construction" {
       effort 15d
-      allocate dev2, dev3
+      allocate dev2, dev3, bossOfTheBoss
       depends WMGame.twebF.tGUId
     }
     task tFEt "Web Front End Test" {
@@ -175,7 +184,7 @@ task WMGame "Web & Mobile Game" {
     task tGUId "Mobile GUI Design" {
       effort 9d
       actual:effort 15d
-      allocate dev2
+      allocate dev2, bossOfTheBoss
     }
     task tFEc "Mobile Front End Construction" {
       effort 15d
@@ -193,6 +202,7 @@ task WMGame "Web & Mobile Game" {
       start 2023-06-01
       effort 10d
       allocate boss
+      allocate bossOfTheBoss
       allocate dev2
       actual:effort 15d
       journalentry 2023-04-13 "Problems with the planned dates" {
